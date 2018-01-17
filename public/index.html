@@ -39,22 +39,25 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
+                                    <div class="input-group mb-3">
+                                        <div class="dropdown width fullwidth">
+                                            <button class="btn btn-block btn-round dropdown-toggle text-left my-0 btn-primary--site-theme" id="dropdownConsumptionInput"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="now-ui-icons business_bulb-63"></i>
+                                                <span id="dropdownConsumptionValue" class="px-2">
+                                                    Do you know your recent monthly energy consumption?
+                                                </span>
+                                            </button>
+                                            <ul id="dropdownConsumptionOptions" class="dropdown-menu">
+                                                <li class="dropdown-item" data-consumption-index="0" data-consumption-tag="consumption" href="#">Yes</li>
+                                                <li class="dropdown-item" data-consumption-index="1" data-consumption-tag="household" href="#">No</li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
                                     <div class="input-group form-group-no-border mb-3">
-                                        <span class="input-group-addon">
-                                            <i class="now-ui-icons business_bulb-63"></i>
-                                        </span>
-                                        <input type="text" name="consumption" class="form-control" id="formInputMonthlyConsumption" placeholder="Monthly consumption (kWh)">
+                                        <input type="text" name="consumption" class="form-control pl-5" id="formInputConsumption" placeholder="Enter your Monthly consumption (kWh)">
                                     </div>
-                                    <!--End monthly consumption input-->
-
-                                    <div class="input-group form-group-no-border mb-3">
-                                        <span class="input-group-addon household__counter--modifier" data-counter="-1">
-                                            <i class="now-ui-icons ui-1_simple-delete"></i>
-                                        </span>
-                                        <input class="form-control" name="household" id="formInputHouseholdSize" placeholder="Household size">
-                                    </div>
-                                    <!--End household size input-->
 
                                     <div class="input-group form-group-no-border mb-3">
                                         <span class="input-group-addon">
@@ -66,14 +69,14 @@
 
                                     <div class="input-group mb-3">
                                         <div class="dropdown width fullwidth">
-                                            <button class="btn btn-block btn-round dropdown-toggle text-left my-0 btn-primary--site-theme" id="formDropdownSubsButton"
+                                            <button class="btn btn-block btn-round dropdown-toggle text-left my-0 btn-primary--site-theme" id="formDropdownSub"
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="now-ui-icons users_single-02"></i>
-                                                <span id="formDropdownSubsValue" class="px-2">
-                                                    Membership Fee
+                                                <span id="formDropdownSubValue" class="px-2">
+                                                    Atlas Membership Fee
                                                 </span>
                                             </button>
-                                            <ul id="formDropdownSubsOptions" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <ul id="formDropdownSubOptions" class="dropdown-menu">
                                                 <li class="dropdown-item" data-membership-length="1" data-membership-price="40" href="#">$40 (1 year)</li>
                                                 <li class="dropdown-item" data-membership-length="3" data-membership-price="100" href="#">$100 (3 years)</li>
                                                 <li class="dropdown-item" data-membership-length="5" data-membership-price="160" href="#">$160 (5 years)</li>
@@ -94,7 +97,7 @@
                 <!-- End calculator -->
                 <div id="emailFormContainer" class="col-12 component__container container--hide">
                     <div class="col-sm-10 col-md-8 col-lg-6 mx-auto card__calculator-container">
-                        <h4 class="title title-up">Subscribe to our newsletter</h4>    
+                        <h4 class="title title-up">Subscribe to our newsletter</h4>
                         <p>We'll keep you up to date with what's new at Atlas!</p>
                         <div class="input-group form-group-no-border mb-3">
                             <span class="input-group-addon">
@@ -107,34 +110,34 @@
                 </div>
                 <!-- End email form -->
                 <div id="resultsContainer" class="col-12 component__container container--hide">
-                        <div class="col-sm-10 col-md-8 col-lg-6 mx-auto card__calculator-container">
-                            <div class="header text-center mb-5">
-                                <p id="savingsMessage">You can save an estimated</p>
-                                <h2 class="title text-success" id="estimatedSavings"></h2>
-                                <p id="phraseROI">You can earn your money back in
-                                    <span id="phraseROItime"></span> years with the Atlas
-                                    <span id="membershipTime">x</span> year subscription!</p>
-                            </div>
-                            <div class="text-center">
-                                <h6>Share on social media</h6>
-                                <a target="_blank" href="https://www.twitter.com/" class="btn btn-neutral btn-icon btn-twitter btn-round btn-lg" rel="tooltip"
-                                    title="" data-original-title="Follow us">
-                                    <i class="fa fa-twitter"></i>
-                                </a>
-                                <a target="_blank" href="https://www.facebook.com/" class="btn btn-neutral btn-icon btn-facebook btn-round btn-lg" rel="tooltip"
-                                    title="" data-original-title="Like us">
-                                    <i class="fa fa-facebook-square"></i>
-                                </a>
-                                <a target="_blank" href="https://www.linkedin.com/" class="btn btn-neutral btn-icon btn-linkedin btn-lg btn-round" rel="tooltip"
-                                    title="" data-original-title="Follow us">
-                                    <i class="fa fa-linkedin"></i>
-                                </a>
-                            </div>
+                    <div class="col-sm-10 col-md-8 col-lg-6 mx-auto card__calculator-container">
+                        <div class="header text-center mb-5">
+                            <p id="savingsMessage">You can save an estimated</p>
+                            <h2 class="title text-success" id="estimatedSavings"></h2>
+                            <p id="phraseROI">You can earn your money back in
+                                <span id="phraseROItime"></span> years with the Atlas
+                                <span id="membershipTime">x</span> year subscription!</p>
+                        </div>
+                        <div class="text-center">
+                            <h6>Share on social media</h6>
+                            <a target="_blank" href="https://www.twitter.com/" class="btn btn-neutral btn-icon btn-twitter btn-round btn-lg" rel="tooltip"
+                                title="" data-original-title="Follow us">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                            <a target="_blank" href="https://www.facebook.com/" class="btn btn-neutral btn-icon btn-facebook btn-round btn-lg" rel="tooltip"
+                                title="" data-original-title="Like us">
+                                <i class="fa fa-facebook-square"></i>
+                            </a>
+                            <a target="_blank" href="https://www.linkedin.com/" class="btn btn-neutral btn-icon btn-linkedin btn-lg btn-round" rel="tooltip"
+                                title="" data-original-title="Follow us">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
                         </div>
                     </div>
-                    <!-- End results row -->
                 </div>
-                <!-- End results -->
+                <!-- End results row -->
+            </div>
+            <!-- End results -->
             <div class="row">
                 <div class="text-muted text-justify col-12 col-md-8 col-lg-6 mx-auto mt-4">
                     <p>

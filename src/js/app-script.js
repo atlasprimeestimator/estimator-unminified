@@ -16,54 +16,57 @@ document.addEventListener('DOMContentLoaded', () => {
     const changeValue = { [e.target.name]: e.target.value };
     console.log(changeValue);
     inputValues = Object.assign({}, inputValues, changeValue);
-
     return true;
   }
-  function dropdownChangeHandler(dataset,text) {
-    const dropdownSelected = document.querySelector('#formDropdownSubsValue');
+  function subDropdownChangeHandler(dataset, text) {
+    const dropdownSelected = document.querySelector('#formDropdownSubValue');
     dropdownSelected.innerText = text;
     const price = dataset.membershipPrice;
-    let memberPercent = price < 450 ?  0.1 : price == 450 ? 0.135 : 0.18;
-    const changeValue = Object.assign({}, dataset, {membershipPercent: memberPercent});
+    let memberPercent = price < 450 ? 0.1 : price == 450 ? 0.135 : 0.18;
+    const changeValue = Object.assign({}, dataset, { membershipPercent: memberPercent });
     inputValues = Object.assign({}, inputValues, changeValue);
-
     return true;
   }
-  function householdSizeHandler(counter){
-    if(!!counter){
-      inputValues.household = inputValues.household + parseInt(counter);
-      document.querySelector('#formInputHouseholdSize').value = inputValues.household;
+  function consTypeDropdownChangeHandler(dataset){
+    const {consumptionIndex, consumptionTag} = dataset;
+    const consumptionFormInput = document.querySelector('#formInputConsumption');
+    if(consumptionIndex == "0"){
+      inputValues.household = 0;
+      consumptionFormInput.placeholder = "Enter your monthly consumption (kWh)";
+    } else {
+      inputValues.consumption = 0;
+      consumptionFormInput.placeholder = "Enter your household size";
     }
-    return true;
+    consumptionFormInput.name = consumptionTag;
   }
-  function calculateValues(inputParams){
-    const {consumption, household, marketPrice, membershipPrice, membershipLength, membershipPercent} = inputParams;
+  function calculateValues(inputParams) {
+    const { consumption, household, marketPrice, membershipPrice, membershipLength, membershipPercent } = inputParams;
     let getCalculatedValues = {
-      estimatedConsumption: !!consumption ? parseInt(consumption) : 897/2.58*parseInt(household),
-      estimatedBill: !!consumption ? consumption * marketPrice * 0.01 : marketPrice * 897/2.58*parseInt(household) * 0.01,
-      estimatedBillAtlas: !!consumption ? consumption * marketPrice * 0.01 * (1-membershipPercent) : marketPrice * 897/2.58*parseInt(household) * 0.01 * (1-membershipPercent)
+      estimatedConsumption: !!consumption ? parseInt(consumption) : 897 / 2.58 * parseInt(household),
+      estimatedBill: !!consumption ? consumption * marketPrice * 0.01 : marketPrice * 897 / 2.58 * parseInt(household) * 0.01,
+      estimatedBillAtlas: !!consumption ? consumption * marketPrice * 0.01 * (1 - membershipPercent) : marketPrice * 897 / 2.58 * parseInt(household) * 0.01 * (1 - membershipPercent)
     };
 
     getCalculatedValues.estimatedSavings = getCalculatedValues.estimatedBill - getCalculatedValues.estimatedBillAtlas;
     getCalculatedValues.displaySavings = getCalculatedValues.estimatedSavings * 12 * membershipLength - membershipPrice;
 
     Object.keys(getCalculatedValues).forEach(val => {
-      calculatedValues[val] =  parseFloat(getCalculatedValues[val].toFixed(2));
+      calculatedValues[val] = parseFloat(getCalculatedValues[val].toFixed(2));
     });
     console.log(calculatedValues);
     return true;
   }
-  function renderResultsContainer(inputParams = inputValues){
-    const {consumption, household, marketPrice, membershipPrice, membershipLength, membershipPercent} = inputParams;
+  function renderResultsContainer(inputParams = inputValues) {
+    const { consumption, household, marketPrice, membershipPrice, membershipLength, membershipPercent } = inputParams;
     document.querySelector('#emailFormContainer').classList.add('container--hide');
     document.querySelector('#emailFormContainer').classList.remove('container--show');
 
     document.querySelector('#resultsContainer').classList.add('container--show');
     document.querySelector('#resultsContainer').classList.remove('container--hide');
-    if(calculatedValues.displaySavings > 0){
+    if (calculatedValues.displaySavings > 0) {
       document.querySelector('#savingsMessage').textContent = 'Great, you can save an estimated';
       document.querySelector('#estimatedSavings').textContent = `\$${calculatedValues.displaySavings.toFixed(2)}`;
-      document.querySelector('#phraseROItime').textContent = (membershipPrice/(calculatedValues.estimatedSavings * 12)).toFixed(1);
+      document.querySelector('#phraseROItime').textContent = (membershipPrice / (calculatedValues.estimatedSavings * 12)).toFixed(1);
     } else {
       document.querySelector('#savingsMessage').textContent = 'Your energy consumption is so low, we can\'t save you a lot of money at the moment!';
       document.querySelector('#estimatedSavings').classList.add('results--hide');
@@ -74,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // calculator form
   const calculatorForm = document.querySelector('#calculator');
-  calculatorForm.addEventListener('submit', (e)=>{
+  calculatorForm.addEventListener('submit', (e) => {
     e.preventDefault();
     document.querySelector('#calculatorContainer').classList.add('container--hide');
     document.querySelector('#calculatorContainer').classList.remove('container--show');
@@ -86,25 +89,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // app calculator inputs
   const appFormInputText = {
-    monthlyConsumption: document.querySelector('#formInputMonthlyConsumption'),
-    householdSize: document.querySelector('#formInputHouseholdSize'),
+    monthlyConsumption: document.querySelector('#formInputConsumption'),
+    // householdSize: document.querySelector('#formInputHouseholdSize'),
     marketPrice: document.querySelector('#formInputMarketPrice')
   };
+  // energy consumption type dropdown
+  const appFormConsDropdown = document.querySelector('#dropdownConsumptionOptions').children;
   // app membership dropdown
-  const householdCountModifier = document.querySelectorAll('.household__counter--modifier');
-  for(let h=0; h<householdCountModifier.length; h++){
-    householdCountModifier[h].onclick = (e) => {householdSizeHandler(e.target.dataset.counter)};
-  }
-  const appFormMemberDropdown = document.querySelector('#formDropdownSubsOptions').children;
+  const appFormMemberDropdown = document.querySelector('#formDropdownSubOptions').children;
 
   // email form
   const emailSubmit = document.querySelector('#emailSubmit');
   emailSubmit.onclick = (e) => {
     const emailInput = document.querySelector('#emailAddress').value;
-    if(!!emailInput){
+    if (!!emailInput) {
       const calcSavings = calculateValues(inputValues);
       console.log(calcSavings);
-      if(!!calcSavings){
+      if (!!calcSavings) {
         renderResultsContainer();
       }
     }
@@ -114,11 +115,18 @@ document.addEventListener('DOMContentLoaded', () => {
   for (let i in appFormInputText) {
     appFormInputText[i].onchange = (e) => inputChangeHandler(e);
   }
- 
+
   for (let o in appFormMemberDropdown) {
-    if(o<appFormMemberDropdown.length){
-    const dropdownOption = appFormMemberDropdown[o];
-     dropdownOption.onclick = (e) => dropdownChangeHandler(e.target.dataset, e.target.innerText);
+    if (o < appFormMemberDropdown.length) {
+      const dropdownOption = appFormMemberDropdown[o];
+      dropdownOption.onclick = (e) => subDropdownChangeHandler(e.target.dataset, e.target.innerText);
+    }
+  }
+
+  for (let c in appFormConsDropdown) {
+    if (c < appFormMemberDropdown.length) {
+      const dropdownOption = appFormConsDropdown[c];
+      dropdownOption.onclick = (e) => consTypeDropdownChangeHandler(e.target.dataset);
     }
   }
 

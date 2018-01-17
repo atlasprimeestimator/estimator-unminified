@@ -5,18 +5,18 @@
     }
     100%{
         opacity: 0;
-        transform: translateY(-10%);
+        transform: translateX(2%);
     }
 }
 @keyframes fadeIn {
     0%{
         opacity: 0;
-        transform: translateY(-25%);
+        transform: translateX(-2%);
     }
     100%{
         opacity: 1;
         height: auto;
-        transform: translateY(0%);
+        transform: translateX(0%);
     }
 }
 .view__container {
@@ -25,10 +25,11 @@
     text-align: center;
 }
 .component__container.container--show{
+    animation: 1750ms fadeIn ease forwards;
     display: block;
 }
 .component__container.container--hide{
-    animation: 1200ms fadeOut ease forwards;
+    animation: 1750ms fadeOut ease forwards;
     display: none;
 }
 .results--hide{

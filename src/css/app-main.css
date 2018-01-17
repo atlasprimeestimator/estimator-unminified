@@ -5,8 +5,8 @@
     transform: translateY(0); }
   100% {
     opacity: 0;
-    -webkit-transform: translateY(-10%);
-    transform: translateY(-10%); } }
+    -webkit-transform: translateX(2%);
+    transform: translateX(2%); } }
 
 @keyframes fadeOut {
   0% {
@@ -15,30 +15,30 @@
     transform: translateY(0); }
   100% {
     opacity: 0;
-    -webkit-transform: translateY(-10%);
-    transform: translateY(-10%); } }
+    -webkit-transform: translateX(2%);
+    transform: translateX(2%); } }
 
 @-webkit-keyframes fadeIn {
   0% {
     opacity: 0;
-    -webkit-transform: translateY(-25%);
-    transform: translateY(-25%); }
+    -webkit-transform: translateX(-2%);
+    transform: translateX(-2%); }
   100% {
     opacity: 1;
     height: auto;
-    -webkit-transform: translateY(0%);
-    transform: translateY(0%); } }
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%); } }
 
 @keyframes fadeIn {
   0% {
     opacity: 0;
-    -webkit-transform: translateY(-25%);
-    transform: translateY(-25%); }
+    -webkit-transform: translateX(-2%);
+    transform: translateX(-2%); }
   100% {
     opacity: 1;
     height: auto;
-    -webkit-transform: translateY(0%);
-    transform: translateY(0%); } }
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%); } }
 
 .view__container {
   height: 590px;
@@ -46,11 +46,13 @@
   text-align: center; }
 
 .component__container.container--show {
+  -webkit-animation: 1750ms fadeIn ease forwards;
+  animation: 1750ms fadeIn ease forwards;
   display: block; }
 
 .component__container.container--hide {
-  -webkit-animation: 1200ms fadeOut ease forwards;
-  animation: 1200ms fadeOut ease forwards;
+  -webkit-animation: 1750ms fadeOut ease forwards;
+  animation: 1750ms fadeOut ease forwards;
   display: none; }
 
 .results--hide {
