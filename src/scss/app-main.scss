@@ -1,0 +1,54 @@
+/* * * * * * * * * * * *
+/* Color Modifications
+ * * * * * * * * * * * */
+ .card__calculator-container{
+    width: 100%;
+}
+.color-primary--site-theme {
+    color: rgb(50, 77, 147)
+}
+.bg-primary--site-theme {
+    background-color: rgb(50, 77, 147);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* * * * * * * *
+ * Form input(s) modifications
+ * * * * * * * */
+ /* Form input(s) */
+.calculator__form .input-group-addon,
+.calculator__form .form-control,
+.calculator__form .form-control:active,
+.calculator__form .form-control:focus
+ {
+    color: rgba(255, 255, 255, 0.8);
+}
+.calculator__form .input-group .input-group-addon:active,
+.calculator__form .input-group .input-group-addon:focus {
+    background-color: rgba(222, 222, 222, 0.3) !important;
+}
+.calculator__form .form-status.form-status--hidden{
+    display: none;
+    position: absolute;
+    width: 100%;
+    z-index: 999;
+}
+
+/* Form buttons */
+.calculator__form .btn.btn-primary--site-theme {
+    background-color: rgba(222,222,222,0.3);
+    color: rgba(255, 255, 255, 0.8);
+}
+.calculator__form .btn-neutral.color-primary--site-theme:hover,
+.calculator__form .btn-neutral.color-primary--site-theme:active,
+.calculator__form .btn-neutral.color-primary--site-theme:focus {
+    color: rgb(50, 77, 147);
+}
+.calculator__form .btn.btn-primary--site-theme:hover,
+.calculator__form .btn.btn-primary--site-theme:active,
+.calculator__form .btn.btn-primary--site-theme:focus {
+    background-color: rgba(222,222,222,0.5);
+}
+.calculator__form .width.fullwidth{
+    width: 100%;
+}

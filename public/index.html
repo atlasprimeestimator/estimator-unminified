@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no" name="viewport">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet">
+    <title>Atlas Power Systems Savings Calculator</title>
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+    <!-- CSS Files -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/now-ui-kit.css?v=1.1.0" rel="stylesheet" />
+    <link href="assets/css/app-style.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="section">
+        <div class="container">
+
+            <div class="row">
+                <div class="header mx-auto text-center">
+                    <h2 class="title color-primary--site-theme">Atlas Power Systems</h2>
+                </div>
+            </div>
+            <!-- End header row -->
+            <div class="row view__container">
+
+                <div id="resultsContainer" class="col-12 component__container container--hide">
+                    <div class="col-sm-10 col-md-8 col-lg-6 mx-auto card__calculator-container">
+                        <div class="header text-center mb-5">
+                            <p id="savingsMessage">Great, you can save an estimated</p>
+                            <h2 class="title text-success" id="estimatedSavings"></h2>
+                            <p id="phraseROI">You can earn your money back in
+                                    <span id="phraseROItime"></span> years</p>    
+                            <p>with the Atlas
+                                <span id="membershipTime">x</span> year subscription</p>
+                            <a href="#pablo" class="btn btn-info btn-icon btn-round">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                            <a href="#pablo" class="btn btn-info btn-icon btn-round">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                            <a href="#pablo" class="btn btn-info btn-icon btn-round">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+
+
+                            <h4 class="title title-up">Sign up for the Atlas Newsletter</h4>
+                        </div>
+                        <div class="input-group form-group-no-border mb-3">
+                            <span class="input-group-addon">
+                                <i class="now-ui-icons ui-1_email-85"></i>
+                            </span>
+                            <input type="text" name="consumption" class="form-control" id="emailAddress" placeholder="Email address">
+                        </div>
+
+                        <div class="social-line text-center">
+                            <h6>Share on social media</h6>
+                            <a href="" class="btn btn-neutral btn-facebook btn-icon btn-round">
+                                <i class="fa fa-facebook-square"></i>
+                            </a>
+                            <a href="" class="btn btn-neutral btn-twitter btn-icon btn-round">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                            <a href="" class="btn btn-neutral btn-google btn-icon btn-round">
+                                <i class="fa fa-google-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- End results row -->
+
+                <div id="calculatorContainer" class="col-12 component__container container--show">
+                    <div class="card col-sm-10 col-md-8 col-lg-6 mx-auto card__calculator-container bg-primary--site-theme">
+                        <form id="calculator" class="calculator__form">
+                            <div class="card-header text-center form-status form-status--hidden" id="form-status"></div>
+                            <div class="header text-center mb-5">
+                                <h4 class="title title-up">Savings Estimator</h4>
+                                <p>Fill out the information below to find out the money you can save by signing up with Atlas
+                                    Power Systems
+                                </p>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+
+                                    <div class="input-group form-group-no-border mb-3">
+                                        <span class="input-group-addon">
+                                            <i class="now-ui-icons business_bulb-63"></i>
+                                        </span>
+                                        <input type="text" name="consumption" class="form-control" id="formInputMonthlyConsumption" placeholder="Monthly consumption (kWh)">
+                                    </div>
+                                    <!--End monthly consumption input-->
+
+                                    <div class="input-group form-group-no-border mb-3">
+                                        <span class="input-group-addon household__counter--modifier" data-counter="-1">
+                                            <i class="now-ui-icons ui-1_simple-delete"></i>
+                                        </span>
+                                        <input class="form-control" name="household" id="formInputHouseholdSize" placeholder="Household size">
+                                        <span class="input-group-addon household__counter--modifier" data-counter="1">
+                                            <i class="now-ui-icons ui-1_simple-add"></i>
+                                        </span>
+                                    </div>
+                                    <!--End household size input-->
+
+                                    <div class="input-group form-group-no-border mb-3">
+                                        <span class="input-group-addon">
+                                            <i class="now-ui-icons business_money-coins"></i>
+                                        </span>
+                                        <input type="text" name="marketPrice" id="formInputMarketPrice" class="form-control" placeholder="Market Price (¢/kWh)" value="11.88">
+                                    </div>
+                                    <!--End market price input-->
+
+                                    <div class="input-group mb-3">
+                                        <div class="dropdown width fullwidth">
+                                            <button class="btn btn-block btn-round dropdown-toggle text-left my-0 btn-primary--site-theme" id="formDropdownSubsButton"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="now-ui-icons users_single-02"></i>
+                                                <span id="formDropdownSubsValue" class="px-2">
+                                                    Membership Fee
+                                                </span>
+                                            </button>
+                                            <ul id="formDropdownSubsOptions" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <li class="dropdown-item" data-membership-length="1" data-membership-price="40" href="#">$40 (1 year)</li>
+                                                <li class="dropdown-item" data-membership-length="3" data-membership-price="100" href="#">$100 (3 years)</li>
+                                                <li class="dropdown-item" data-membership-length="5" data-membership-price="160" href="#">$160 (5 years)</li>
+                                                <li class="dropdown-item" data-membership-length="15" data-membership-price="450" href="#">$450 (15 years)</li>
+                                                <li class="dropdown-item" data-membership-length="20" data-membership-price="1000" href="#">$1000 (20 years)</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!--End membership dropdown -->
+                                </div>
+                            </div>
+                            <div class="footer mt-5 text-center">
+                                <button type="submit" id="formSubmit" class="btn btn-neutral btn-round btn-lg color-primary--site-theme">Calculate Savings</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- End calculator row -->
+                <div class="row view__container">
+                    <div class="text-muted text-center">
+                        <small>
+                            <p>
+                                <strong>Disclaimer:</strong>
+                                The results calculated here assume constant linear energy use and unchanging billing for residential consumers only. Since
+                                our membership savings are based on percentages, should the market price increase or decrease,
+                                your savings will also the change and mirror the change in market price. Savings shown here
+                                are valid only for the duration of the membership from the informed starting date</p>
+                        </small>
+                    </div>
+                </div>
+                <!-- End page form -->
+            </div>
+</body>
+<!--   Core JS Files   -->
+<script src="assets/js/script.min.js" type="text/javascript"></script>
+<script src="assets/js/core/jquery.3.2.1.min.js" type="text/javascript"></script>
+<script src="assets/js/core/popper.min.js" type="text/javascript"></script>
+<script src="assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+<script src="assets/js/plugins/bootstrap-switch.js"></script>
+<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+<script src="assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
+<!--  Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker -->
+<script src="assets/js/plugins/bootstrap-datepicker.js" type="text/javascript"></script>
+<!-- Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc -->
+<!-- <script src="assets/js/now-ui-kit.js?v=1.1.0" type="text/javascript"></script> -->
+
+</html>
