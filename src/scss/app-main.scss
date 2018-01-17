@@ -1,7 +1,44 @@
+@keyframes fadeOut {
+    0%{
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100%{
+        opacity: 0;
+        transform: translateY(-10%);
+    }
+}
+@keyframes fadeIn {
+    0%{
+        opacity: 0;
+        transform: translateY(-25%);
+    }
+    100%{
+        opacity: 1;
+        height: auto;
+        transform: translateY(0%);
+    }
+}
+.view__container {
+    height: 590px;
+    overflow: hidden;
+    text-align: center;
+}
+.component__container.container--show{
+    display: block;
+}
+.component__container.container--hide{
+    animation: 1200ms fadeOut ease forwards;
+    display: none;
+}
+.results--hide{
+    display: none;
+}
 /* * * * * * * * * * * *
 /* Color Modifications
  * * * * * * * * * * * */
- .card__calculator-container{
+.card__calculator-container{
+    height: 601px;
     width: 100%;
 }
 .color-primary--site-theme {
@@ -19,12 +56,12 @@
 .calculator__form .input-group-addon,
 .calculator__form .form-control,
 .calculator__form .form-control:active,
-.calculator__form .form-control:focus
- {
-    color: rgba(255, 255, 255, 0.8);
+.calculator__form .form-control:focus{
+    color: rgba(255, 255, 255, 0.5);
 }
 .calculator__form .input-group .input-group-addon:active,
-.calculator__form .input-group .input-group-addon:focus {
+.calculator__form .input-group .input-group-addon:focus,
+ {
     background-color: rgba(222, 222, 222, 0.3) !important;
 }
 .calculator__form .form-status.form-status--hidden{
@@ -39,9 +76,10 @@
     background-color: rgba(222,222,222,0.3);
     color: rgba(255, 255, 255, 0.8);
 }
-.calculator__form .btn-neutral.color-primary--site-theme:hover,
-.calculator__form .btn-neutral.color-primary--site-theme:active,
-.calculator__form .btn-neutral.color-primary--site-theme:focus {
+.calculator__form .btn.color-primary--site-theme:hover,
+.calculator__form .btn.color-primary--site-theme:active,
+.calculator__form .btn.color-primary--site-theme:focus {
+    
     color: rgb(50, 77, 147);
 }
 .calculator__form .btn.btn-primary--site-theme:hover,

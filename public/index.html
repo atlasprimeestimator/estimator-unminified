@@ -13,7 +13,7 @@
     <!-- CSS Files -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="assets/css/now-ui-kit.css?v=1.1.0" rel="stylesheet" />
-    <link href="assets/css/app-style.css" rel="stylesheet" />
+    <link href="assets/css/app-main.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -27,40 +27,6 @@
             </div>
             <!-- End header row -->
             <div class="row view__container">
-
-                <div id="resultsContainer" class="col-12 component__container container--hide">
-                    <div class="col-sm-10 col-md-8 col-lg-6 mx-auto card__calculator-container">
-                        <div class="header text-center mb-5">
-                            <p id="savingsMessage">Great, you can save an estimated</p>
-                            <h2 class="title text-success" id="estimatedSavings"></h2>
-                            <p id="phraseROI">You can earn your money back in
-                            <span id="phraseROItime"></span> years with the Atlas 
-                            <span id="membershipTime">x</span> year subscription</p>
-                        </div>
-                        <h4 class="title title-up">Sign up for the Atlas Newsletter</h4>
-                        <div class="input-group form-group-no-border mb-3">
-                            <span class="input-group-addon">
-                                <i class="now-ui-icons ui-1_email-85"></i>
-                            </span>
-                            <input type="text" name="consumption" class="form-control" id="emailAddress" placeholder="Email address">
-                        </div>
-
-                        <div class="social-line text-center">
-                            <h6>Share on social media</h6>
-                            <a class="btn btn-neutral btn-facebook btn-icon btn-round">
-                                <i class="fa fa-facebook-square"></i>
-                            </a>
-                            <a class="btn btn-neutral btn-twitter btn-icon btn-round">
-                                <i class="fa fa-linkedin"></i>
-                            </a>
-                            <a class="btn btn-neutral btn-google btn-icon btn-round">
-                                <i class="fa fa-google-plus"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!-- End results row -->
-
                 <div id="calculatorContainer" class="col-12 component__container container--show">
                     <div class="card col-sm-10 col-md-8 col-lg-6 mx-auto card__calculator-container bg-primary--site-theme">
                         <form id="calculator" class="calculator__form">
@@ -87,9 +53,6 @@
                                             <i class="now-ui-icons ui-1_simple-delete"></i>
                                         </span>
                                         <input class="form-control" name="household" id="formInputHouseholdSize" placeholder="Household size">
-                                        <span class="input-group-addon household__counter--modifier" data-counter="1">
-                                            <i class="now-ui-icons ui-1_simple-add"></i>
-                                        </span>
                                     </div>
                                     <!--End household size input-->
 
@@ -128,20 +91,60 @@
                         </form>
                     </div>
                 </div>
-                <!-- End calculator row -->
-                <div class="row view__container">
-                    <div class="text-muted text-center">
-                        <small>
-                            <p>
-                                <strong>Disclaimer:</strong>
-                                The results calculated here assume constant linear energy use and unchanging billing for residential consumers only. Since
-                                our membership savings are based on percentages, should the market price increase or decrease,
-                                your savings will also the change and mirror the change in market price. Savings shown here
-                                are valid only for the duration of the membership from the informed starting date</p>
-                        </small>
+                <!-- End calculator -->
+                <div id="emailFormContainer" class="col-12 component__container container--hide">
+                    <div class="col-sm-10 col-md-8 col-lg-6 mx-auto card__calculator-container">
+                        <h4 class="title title-up">Subscribe to our newsletter</h4>    
+                        <p>We'll keep you up to date with what's new at Atlas!</p>
+                        <div class="input-group form-group-no-border mb-3">
+                            <span class="input-group-addon">
+                                <i class="now-ui-icons ui-1_email-85"></i>
+                            </span>
+                            <input type="text" name="email" class="form-control" id="emailAddress" placeholder="Email address">
+                        </div>
+                        <button id="emailSubmit" class="btn btn-round btn-lg bg-primary--site-theme">Sign me up!</button>
                     </div>
                 </div>
-                <!-- End page form -->
+                <!-- End email form -->
+                <div id="resultsContainer" class="col-12 component__container container--hide">
+                        <div class="col-sm-10 col-md-8 col-lg-6 mx-auto card__calculator-container">
+                            <div class="header text-center mb-5">
+                                <p id="savingsMessage">You can save an estimated</p>
+                                <h2 class="title text-success" id="estimatedSavings"></h2>
+                                <p id="phraseROI">You can earn your money back in
+                                    <span id="phraseROItime"></span> years with the Atlas
+                                    <span id="membershipTime">x</span> year subscription!</p>
+                            </div>
+                            <div class="text-center">
+                                <h6>Share on social media</h6>
+                                <a target="_blank" href="https://www.twitter.com/" class="btn btn-neutral btn-icon btn-twitter btn-round btn-lg" rel="tooltip"
+                                    title="" data-original-title="Follow us">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                                <a target="_blank" href="https://www.facebook.com/" class="btn btn-neutral btn-icon btn-facebook btn-round btn-lg" rel="tooltip"
+                                    title="" data-original-title="Like us">
+                                    <i class="fa fa-facebook-square"></i>
+                                </a>
+                                <a target="_blank" href="https://www.linkedin.com/" class="btn btn-neutral btn-icon btn-linkedin btn-lg btn-round" rel="tooltip"
+                                    title="" data-original-title="Follow us">
+                                    <i class="fa fa-linkedin"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End results row -->
+                </div>
+                <!-- End results -->
+            <div class="row">
+                <div class="text-muted text-justify col-12 col-md-8 col-lg-6 mx-auto mt-4">
+                    <p>
+                        <strong>Disclaimer:</strong>
+                        The results calculated here assume constant linear energy use and unchanging billing for residential consumers only. Since
+                        our membership savings are based on percentages, should the market price increase or decrease, your
+                        savings will also the change and mirror the change in market price. Savings shown here are valid
+                        only for the duration of the membership from the informed starting date
+                    </p>
+                </div>
             </div>
 </body>
 <!--   Core JS Files   -->

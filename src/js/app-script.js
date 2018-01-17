@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Store values
   let inputValues = {
     consumption: 0,
     household: 0,
@@ -8,12 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
     membershipPercent: 0
   };
 
-  let calculatedValues = {
-  };
+  let calculatedValues = {};
 
-  function inputTextChangeHandler(e) {
+  // function callbacks
+  function inputChangeHandler(e) {
     const changeValue = { [e.target.name]: e.target.value };
+    console.log(changeValue);
     inputValues = Object.assign({}, inputValues, changeValue);
+
+    return true;
   }
   function dropdownChangeHandler(dataset,text) {
     const dropdownSelected = document.querySelector('#formDropdownSubsValue');
@@ -22,12 +26,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let memberPercent = price < 450 ?  0.1 : price == 450 ? 0.135 : 0.18;
     const changeValue = Object.assign({}, dataset, {membershipPercent: memberPercent});
     inputValues = Object.assign({}, inputValues, changeValue);
+
+    return true;
   }
   function householdSizeHandler(counter){
     if(!!counter){
       inputValues.household = inputValues.household + parseInt(counter);
       document.querySelector('#formInputHouseholdSize').value = inputValues.household;
     }
+    return true;
   }
   function calculateValues(inputParams){
     const {consumption, household, marketPrice, membershipPrice, membershipLength, membershipPercent} = inputParams;
@@ -37,20 +44,22 @@ document.addEventListener('DOMContentLoaded', () => {
       estimatedBillAtlas: !!consumption ? consumption * marketPrice * 0.01 * (1-membershipPercent) : marketPrice * 897/2.58*parseInt(household) * 0.01 * (1-membershipPercent)
     };
 
-    getCalculatedValues.estimatedSavings = parseFloat((getCalculatedValues.estimatedBill - getCalculatedValues.estimatedBillAtlas).toFixed(2));
-    getCalculatedValues.displaySavings = parseFloat((getCalculatedValues.estimatedSavings * 12 * membershipLength - membershipPrice).toFixed(2));
+    getCalculatedValues.estimatedSavings = getCalculatedValues.estimatedBill - getCalculatedValues.estimatedBillAtlas;
+    getCalculatedValues.displaySavings = getCalculatedValues.estimatedSavings * 12 * membershipLength - membershipPrice;
 
-    calculatedValues = getCalculatedValues;
-
-    renderDOMElements();
+    Object.keys(getCalculatedValues).forEach(val => {
+      calculatedValues[val] =  parseFloat(getCalculatedValues[val].toFixed(2));
+    });
+    console.log(calculatedValues);
+    return true;
   }
-  function renderDOMElements(inputParams = inputValues){
+  function renderResultsContainer(inputParams = inputValues){
     const {consumption, household, marketPrice, membershipPrice, membershipLength, membershipPercent} = inputParams;
-    document.querySelector('#calculatorContainer').classList.remove('container--show');
-    document.querySelector('#calculatorContainer').classList.add('container--hide');
+    document.querySelector('#emailFormContainer').classList.add('container--hide');
+    document.querySelector('#emailFormContainer').classList.remove('container--show');
 
-    document.querySelector('#resultsContainer').classList.remove('container--hide');
     document.querySelector('#resultsContainer').classList.add('container--show');
+    document.querySelector('#resultsContainer').classList.remove('container--hide');
     if(calculatedValues.displaySavings > 0){
       document.querySelector('#savingsMessage').textContent = 'Great, you can save an estimated';
       document.querySelector('#estimatedSavings').textContent = `\$${calculatedValues.displaySavings.toFixed(2)}`;
@@ -63,33 +72,52 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#membershipTime').textContent = membershipLength;
   }
 
+  // calculator form
   const calculatorForm = document.querySelector('#calculator');
   calculatorForm.addEventListener('submit', (e)=>{
     e.preventDefault();
-    calculateValues(inputValues);
+    document.querySelector('#calculatorContainer').classList.add('container--hide');
+    document.querySelector('#calculatorContainer').classList.remove('container--show');
+
+    document.querySelector('#emailFormContainer').classList.remove('container--hide');
+    document.querySelector('#emailFormContainer').classList.add('container--show');
     return false;
   })
 
+  // app calculator inputs
   const appFormInputText = {
     monthlyConsumption: document.querySelector('#formInputMonthlyConsumption'),
     householdSize: document.querySelector('#formInputHouseholdSize'),
     marketPrice: document.querySelector('#formInputMarketPrice')
   };
-  
-  for (let i in appFormInputText) {
-    appFormInputText[i].onchange = inputTextChangeHandler;
-  }
-  
+  // app membership dropdown
   const householdCountModifier = document.querySelectorAll('.household__counter--modifier');
   for(let h=0; h<householdCountModifier.length; h++){
     householdCountModifier[h].onclick = (e) => {householdSizeHandler(e.target.dataset.counter)};
   }
-
   const appFormMemberDropdown = document.querySelector('#formDropdownSubsOptions').children;
-  
-  for (let o=0; o<appFormMemberDropdown.length; o++) {
+
+  // email form
+  const emailSubmit = document.querySelector('#emailSubmit');
+  emailSubmit.onclick = (e) => {
+    const emailInput = document.querySelector('#emailAddress').value;
+    if(!!emailInput){
+      const calcSavings = calculateValues(inputValues);
+      console.log(calcSavings);
+      if(!!calcSavings){
+        renderResultsContainer();
+      }
+    }
+  }
+
+  // event Listeners
+  for (let i in appFormInputText) {
+    appFormInputText[i].onchange = (e) => inputChangeHandler(e);
+  }
+ 
+  for (let o in appFormMemberDropdown) {
+    if(o<appFormMemberDropdown.length){
     const dropdownOption = appFormMemberDropdown[o];
-    if(!!dropdownOption){
      dropdownOption.onclick = (e) => dropdownChangeHandler(e.target.dataset, e.target.innerText);
     }
   }
