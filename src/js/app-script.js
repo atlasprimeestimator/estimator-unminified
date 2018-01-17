@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
       estimatedBill: !!consumption ? consumption * marketPrice * 0.01 : marketPrice * 897/2.58*parseInt(household) * 0.01,
       estimatedBillAtlas: !!consumption ? consumption * marketPrice * 0.01 * (1-membershipPercent) : marketPrice * 897/2.58*parseInt(household) * 0.01 * (1-membershipPercent)
     };
-    
+
     getCalculatedValues.estimatedSavings = parseFloat((getCalculatedValues.estimatedBill - getCalculatedValues.estimatedBillAtlas).toFixed(2));
     getCalculatedValues.displaySavings = parseFloat((getCalculatedValues.estimatedSavings * 12 * membershipLength - membershipPrice).toFixed(2));
 
@@ -55,12 +55,12 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelector('#savingsMessage').textContent = 'Great, you can save an estimated';
       document.querySelector('#estimatedSavings').textContent = `\$${calculatedValues.displaySavings.toFixed(2)}`;
       document.querySelector('#phraseROItime').textContent = (membershipPrice/(calculatedValues.estimatedSavings * 12)).toFixed(1);
-      document.querySelector('#membershipTime').textContent = membershipLength;
     } else {
       document.querySelector('#savingsMessage').textContent = 'Your energy consumption is so low, we can\'t save you a lot of money at the moment!';
       document.querySelector('#estimatedSavings').classList.add('results--hide');
       document.querySelector('#phraseROI').classList.add('results--hide');
     }
+    document.querySelector('#membershipTime').textContent = membershipLength;
   }
 
   const calculatorForm = document.querySelector('#calculator');
