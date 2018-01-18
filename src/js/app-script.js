@@ -10,8 +10,23 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   let calculatedValues = {};
+  // Open Graph callbacks
+  function setOGMetaData(calculatedSavings){
+    const shareSavingsTitle = 'Save up to $' + calculatedSavings + ' on your electric bill'
 
-  // function callbacks
+    const metadataOG = [
+      {tag: 'og:title', desc: calculatedSavings > 0? shareSavingsTitle: shareSiteTitle },
+    ];
+    
+    metadataOG.forEach(ogtype=>{
+      const {tag,desc} = ogtype;
+      const ogMeta = document.createElement('meta');
+      ogMeta.name = tag;
+      ogMeta.content = desc;
+      document.getElementsByTagName('head')[0].appendChild(ogMeta);
+    })
+  }
+  // Input/Calculation function callbacks
   function inputChangeHandler(e) {
     const changeValue = { [e.target.name]: e.target.value };
     inputValues = Object.assign({}, inputValues, changeValue);
@@ -29,12 +44,15 @@ document.addEventListener('DOMContentLoaded', () => {
   function consTypeDropdownChangeHandler(dataset){
     const {consumptionIndex, consumptionTag} = dataset;
     const consumptionFormInput = document.querySelector('#formInputConsumption');
+    const consumptionDropdownSelected = document.querySelector('#consumptionDropdownSelected')
     if(consumptionIndex == "0"){
       inputValues.household = 0;
-      consumptionFormInput.placeholder = "Enter your monthly consumption (kWh)";
+      consumptionDropdownSelected.textContent = "(Yes)";
+      consumptionFormInput.placeholder = "Enter your monthly energy usage (kWh)";
     } else {
       inputValues.consumption = 0;
-      consumptionFormInput.placeholder = "Enter your household size";
+      consumptionDropdownSelected.textContent = "(No)";
+      consumptionFormInput.placeholder = "How many people live in your household?";
     }
     consumptionFormInput.name = consumptionTag;
     consumptionFormInput.value = "";
@@ -70,8 +88,20 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelector('#estimatedSavings').classList.remove('results--hide');
       document.querySelector('#phraseROI').classList.remove('results--hide');
 
-      document.querySelector('#savingsMessage').textContent = 'Great! You can save an estimated';
-      document.querySelector('#estimatedSavings').textContent = `\$${calculatedValues.displaySavings.toFixed(2)}`;
+      document.querySelector('#savingsMessage').textContent ='Great! with the Atlas ' + membershipLength + ' year '+
+      (membershipLength < 20 ? 'basic' : 'premium') + ' subscription, you can save up to:';
+
+      let setCounter = 0;
+      const displaySavings = parseFloat(calculatedValues.displaySavings.toFixed(2));
+      const savingsCounter = setInterval(()=>{
+        setCounter = parseFloat((setCounter + (displaySavings/15)).toFixed(2));
+        if(setCounter < displaySavings){
+          document.querySelector('#estimatedSavings').textContent = `\$${setCounter}`;
+        } else {
+          document.querySelector('#estimatedSavings').textContent = `\$${displaySavings.toFixed(2)}`;
+          clearInterval(savingsCounter);          
+        }
+      },50);
       let roiPeriod = parseFloat(membershipPrice / (calculatedValues.estimatedSavings * 12));
       const roiDisplay = roiPeriod > 1 ? roiPeriod.toFixed(1) + ' years' : parseInt(roiPeriod * 12) + ' month(s)';
       document.querySelector('#phraseROItime').textContent = roiDisplay;
@@ -80,7 +110,9 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelector('#estimatedSavings').classList.add('results--hide');
       document.querySelector('#phraseROI').classList.add('results--hide');
     }
-    document.querySelector('#membershipTime').textContent = membershipLength;
+    document.querySelector('#membershipTime').textContent = membershipLength + ' year ' + (membershipLength < 20 ? 'basic' : 'premium');
+
+    setOGMetaData(calculatedValues.displaySavings);
   }
 
   // calculator form
@@ -111,8 +143,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // email form
   const emailSubmit = document.querySelector('#mc-embedded-subscribe-form');
   emailSubmit.addEventListener('submit', (e) => {
+
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const emailInput = document.querySelector('#mce-EMAIL').value;
-    if (!!emailInput) {
+    if (!!re.test(emailInput)) {
       const calcSavings = calculateValues(inputValues);
       if (!!calcSavings) {
         modifyResultsView();

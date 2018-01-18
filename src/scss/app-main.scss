@@ -19,6 +19,14 @@
         transform: translateX(0%);
     }
 }
+@keyframes blinkIn {
+    0%{
+        background-color: rgba(255,255,255,0.65);
+    }
+    100%{
+        background-color: rgba(222,222,222,0.3);
+    }
+}
 a:hover {
     text-decoration: none;
 }
@@ -74,7 +82,9 @@ a:hover {
     width: 100%;
     z-index: 999;
 }
-
+.form--blink {
+    animation: 1000ms blinkIn ease forwards;
+}
 /* Form buttons */
 .calculator__form .btn.btn-primary--site-theme {
     background-color: rgba(222,222,222,0.3);
@@ -94,4 +104,8 @@ a:hover {
 .calculator__form .width.fullwidth,
 .width.fullwidth {
     width: 100%;
+}
+/* Form results */
+.media--break{
+    display: block;
 }

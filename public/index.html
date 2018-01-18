@@ -4,6 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no" name="viewport">
+    <!--Meta Tags for OG markup-->
+    <meta property="og:url" content="https://atlas-calculator.herokuapp.com/"/>
+    <meta property="og:title" content="Find out how much you can save with Atlas"/>
+    <meta property="og:description" content="The Atlas Power System is the only hybrid renewable energy system 
+    designed to retrofit oil rigs and coastal thermal power plants to put your neighbor back to work. Find out how 
+    much Atlas Power Systems can save your money in your electricity bill"/>
+    <meta property="og:image" content="https://atlas-calculator.herokuapp.com/assets/img/og-img.jpeg"/>
+    <meta property="og:locale" content="en_US"/>
+    <!--Favicons-->
     <link rel="apple-touch-icon" sizes="180x180" href="/xapple-touch-icon.png.pagespeed.ic.atxACRARXB.webp">
     <link rel="icon" type="image/png" sizes="32x32" href="/xfavicon-32x32.png.pagespeed.ic.V-VFf6v3DB.webp">
     <link rel="icon" type="image/png" sizes="16x16" href="/xfavicon-16x16.png.pagespeed.ic.iwoVk-5-HN.webp">
@@ -48,25 +57,25 @@
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="now-ui-icons business_bulb-63"></i>
                                                 <span id="dropdownConsumptionValue" class="px-2">
-                                                    Do you know your recent monthly energy consumption?
+                                                    Do you have your latest electric bill <span id="consumptionDropdownSelected">(Y/N)?</span>
                                                 </span>
                                             </button>
                                             <ul id="dropdownConsumptionOptions" class="dropdown-menu">
-                                                <li class="dropdown-item" data-consumption-index="0" data-consumption-tag="consumption" href="#">Yes</li>
-                                                <li class="dropdown-item" data-consumption-index="1" data-consumption-tag="household" href="#">No</li>
+                                                <li class="dropdown-item" data-consumption-index="0" data-consumption-tag="consumption" href="#">Yes, I have my last electric bill!</li>
+                                                <li class="dropdown-item" data-consumption-index="1" data-consumption-tag="household" href="#">I'd like to keep my bill a secret</li>
                                             </ul>
                                         </div>
                                     </div>
 
                                     <div class="input-group form-group-no-border mb-3">
-                                        <input type="text" name="consumption" class="form-control pl-5" id="formInputConsumption" placeholder="Enter your Monthly consumption (kWh)">
+                                        <input type="text" name="consumption" class="form-control pl-5" id="formInputConsumption" placeholder="Enter your monthly energy usage (kWh)">
                                     </div>
 
                                     <div class="input-group form-group-no-border mb-3">
                                         <span class="input-group-addon">
                                             <i class="now-ui-icons business_money-coins"></i>
                                         </span>
-                                        <input type="text" name="marketPrice" id="formInputMarketPrice" class="form-control" placeholder="Market Price (¢/kWh)">
+                                        <input type="text" name="marketPrice" id="formInputMarketPrice" class="form-control" placeholder="Enter the Market Price (¢/kWh)">
                                     </div>
                                     <!--End market price input-->
 
@@ -124,20 +133,20 @@
                 <div id="resultsContainer" class="col-12 component__container container--hide">
                     <div class="col-sm-10 col-md-8 col-lg-6 mx-auto card__calculator-container">
                         <div class="header text-center mb-5">
-                            <p id="savingsMessage">You can save an estimated</p>
+                            <p id="savingsMessage">You can save up to:</p>
                             <h2 class="title text-success" id="estimatedSavings"></h2>
                             <p id="phraseROI">and can earn your money back in
                                 <strong id="phraseROItime"></strong>!
                             </p>
                         </div>
-                        <p>You've chosen the Atlas <span id="membershipTime">x</span> year subscription</p>
+                        <p class="my-0">Your savings are calculated using the </p><p>Atlas <strong><span id="membershipTime">x</span></strong> subscription</p>
                         <div class="input-group mb-3">
                             <div class="dropdown width fullwidth">
-                                <button class="btn btn-block btn-round btn-info dropdown-toggle text-left my-0 btn-primary--site-theme" id="formDropdownSubResults" data-toggle="dropdown"
+                                <button class="btn btn-round btn-info dropdown-toggle text-left my-0 btn-primary--site-theme" id="formDropdownSubResults" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
                                     <i class="now-ui-icons users_single-02"></i>
                                     <span id="formDropdownSubResultsValue" class="px-2">
-                                        Choose a different plan
+                                        Try out a different plan
                                     </span>
                                 </button>
                                 <ul id="formDropdownSubResultsOptions" class="dropdown-menu">
@@ -153,28 +162,28 @@
 
                         <div class="text-center">
                             <a href="https://donorbox.org/atlasprimenrg-residential" target="_blank">
-                                <button class="btn btn-round btn-success text-left my-4">
+                                <button class="btn btn-round btn-success btn-lg my-4">
                                     <i class="now-ui-icons shopping_cart-simple"></i>
                                     <span class="px-2">
-                                        Donate to our Campaign
+                                        Pre-order your plan
                                     </span>
                                 </button>
                             </a>
                         </div>
 
                         <div class="text-center">
-                            <h6>Share on social media</h6>
-                            <a target="_blank" href="https://www.twitter.com/" class="btn btn-neutral btn-icon btn-twitter btn-round btn-lg" rel="tooltip"
-                                title="" data-original-title="Follow us">
-                                <i class="fa fa-twitter"></i>
+                            <h6>Share Your Result</h6>
+                            <a target="_blank" href="https://www.twitter.com/" class="btn btn-neutral btn-social-media btn-twitter" rel="tooltip"
+                                title="" data-original-title="Follow us on Twitter">
+                                <i class="fa fa-twitter fa-3x"></i>
                             </a>
-                            <a target="_blank" href="https://www.facebook.com/" class="btn btn-neutral btn-icon btn-facebook btn-round btn-lg" rel="tooltip"
-                                title="" data-original-title="Like us">
-                                <i class="fa fa-facebook-square"></i>
+                            <a target="_blank" href="https://www.facebook.com/" class="btn btn-neutral btn-social-media btn-facebook" rel="tooltip"
+                                title="" data-original-title="Like us on Facebook">
+                                <i class="fa fa-facebook-square fa-3x"></i>
                             </a>
-                            <a target="_blank" href="https://www.linkedin.com/" class="btn btn-neutral btn-icon btn-linkedin btn-lg btn-round" rel="tooltip"
-                                title="" data-original-title="Follow us">
-                                <i class="fa fa-linkedin"></i>
+                            <a target="_blank" href="https://www.linkedin.com/" class="btn btn-neutral btn-social-media btn-linkedin" rel="tooltip"
+                                title="" data-original-title="Follow us on LinkedIn">
+                                <i class="fa fa-linkedin fa-3x"></i>
                             </a>
                         </div>
                     </div>
