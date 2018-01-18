@@ -19,6 +19,9 @@
         transform: translateX(0%);
     }
 }
+a:hover {
+    text-decoration: none;
+}
 .view__container {
     height: 590px;
     overflow: hidden;
@@ -88,6 +91,7 @@
 .calculator__form .btn.btn-primary--site-theme:focus {
     background-color: rgba(222,222,222,0.5);
 }
-.calculator__form .width.fullwidth{
+.calculator__form .width.fullwidth,
+.width.fullwidth {
     width: 100%;
 }

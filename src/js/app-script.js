@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // function callbacks
   function inputChangeHandler(e) {
     const changeValue = { [e.target.name]: e.target.value };
-    console.log(changeValue);
     inputValues = Object.assign({}, inputValues, changeValue);
     return true;
   }
@@ -38,8 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
       consumptionFormInput.placeholder = "Enter your household size";
     }
     consumptionFormInput.name = consumptionTag;
+    consumptionFormInput.value = "";
   }
-  function calculateValues(inputParams) {
+  function calculateValues(inputParams = inputValues) {
     const { consumption, household, marketPrice, membershipPrice, membershipLength, membershipPercent } = inputParams;
     let getCalculatedValues = {
       estimatedConsumption: !!consumption ? parseInt(consumption) : 897 / 2.58 * parseInt(household),
@@ -53,20 +53,28 @@ document.addEventListener('DOMContentLoaded', () => {
     Object.keys(getCalculatedValues).forEach(val => {
       calculatedValues[val] = parseFloat(getCalculatedValues[val].toFixed(2));
     });
-    console.log(calculatedValues);
     return true;
   }
-  function renderResultsContainer(inputParams = inputValues) {
+  function modifyEmailFormView(inputParams = inputValues) {
     const { consumption, household, marketPrice, membershipPrice, membershipLength, membershipPercent } = inputParams;
     document.querySelector('#emailFormContainer').classList.add('container--hide');
     document.querySelector('#emailFormContainer').classList.remove('container--show');
 
     document.querySelector('#resultsContainer').classList.add('container--show');
     document.querySelector('#resultsContainer').classList.remove('container--hide');
+
+  }
+  function modifyResultsView(inputParams = inputValues){
+    const { consumption, household, marketPrice, membershipPrice, membershipLength, membershipPercent } = inputParams;
     if (calculatedValues.displaySavings > 0) {
-      document.querySelector('#savingsMessage').textContent = 'Great, you can save an estimated';
+      document.querySelector('#estimatedSavings').classList.remove('results--hide');
+      document.querySelector('#phraseROI').classList.remove('results--hide');
+
+      document.querySelector('#savingsMessage').textContent = 'Great! You can save an estimated';
       document.querySelector('#estimatedSavings').textContent = `\$${calculatedValues.displaySavings.toFixed(2)}`;
-      document.querySelector('#phraseROItime').textContent = (membershipPrice / (calculatedValues.estimatedSavings * 12)).toFixed(1);
+      let roiPeriod = parseFloat(membershipPrice / (calculatedValues.estimatedSavings * 12));
+      const roiDisplay = roiPeriod > 1 ? roiPeriod.toFixed(1) + ' years' : parseInt(roiPeriod * 12) + ' month(s)';
+      document.querySelector('#phraseROItime').textContent = roiDisplay;
     } else {
       document.querySelector('#savingsMessage').textContent = 'Your energy consumption is so low, we can\'t save you a lot of money at the moment!';
       document.querySelector('#estimatedSavings').classList.add('results--hide');
@@ -97,35 +105,52 @@ document.addEventListener('DOMContentLoaded', () => {
   const appFormConsDropdown = document.querySelector('#dropdownConsumptionOptions').children;
   // app membership dropdown
   const appFormMemberDropdown = document.querySelector('#formDropdownSubOptions').children;
+  // app membership dropdown - results
+  const appFormMemberResultsDropdown = document.querySelector('#formDropdownSubResultsOptions').children;
 
   // email form
-  const emailSubmit = document.querySelector('#emailSubmit');
-  emailSubmit.onclick = (e) => {
-    const emailInput = document.querySelector('#emailAddress').value;
+  const emailSubmit = document.querySelector('#mc-embedded-subscribe-form');
+  emailSubmit.addEventListener('submit', (e) => {
+    const emailInput = document.querySelector('#mce-EMAIL').value;
     if (!!emailInput) {
       const calcSavings = calculateValues(inputValues);
-      console.log(calcSavings);
       if (!!calcSavings) {
-        renderResultsContainer();
+        modifyResultsView();
+        modifyEmailFormView();
       }
     }
-  }
+  });
 
   // event Listeners
   for (let i in appFormInputText) {
     appFormInputText[i].onchange = (e) => inputChangeHandler(e);
   }
-
+  
   for (let o in appFormMemberDropdown) {
     if (o < appFormMemberDropdown.length) {
       const dropdownOption = appFormMemberDropdown[o];
-      dropdownOption.onclick = (e) => subDropdownChangeHandler(e.target.dataset, e.target.innerText);
+      dropdownOption.onclick = (e) => {
+        subDropdownChangeHandler(e.target.dataset, e.target.innerText);
+      }
     }
   }
 
-  for (let c in appFormConsDropdown) {
-    if (c < appFormMemberDropdown.length) {
-      const dropdownOption = appFormConsDropdown[c];
+  for (let n in appFormMemberResultsDropdown) {
+    if (n < appFormMemberResultsDropdown.length) {
+      const dropdownOption = appFormMemberResultsDropdown[n];
+      dropdownOption.onclick = (e) => {
+        const isParamsModified = subDropdownChangeHandler(e.target.dataset, e.target.innerText);
+        if(!!isParamsModified){
+          calculateValues(inputValues);
+          modifyResultsView();
+        }
+      }
+    }
+  }
+
+  for (let p in appFormConsDropdown) {
+    if (p < appFormMemberDropdown.length) {
+      const dropdownOption = appFormConsDropdown[p];
       dropdownOption.onclick = (e) => consTypeDropdownChangeHandler(e.target.dataset);
     }
   }
