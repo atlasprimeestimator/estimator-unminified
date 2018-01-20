@@ -133,3 +133,18 @@ a:hover {
 /* Form results */
 .media--break {
   display: block; }
+
+.social-media-icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
+  .social-media-icons > * {
+    -ms-flex-item-align: start;
+    align-self: flex-start;
+    margin: 5px; }

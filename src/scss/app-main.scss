@@ -109,3 +109,12 @@ a:hover {
 .media--break{
     display: block;
 }
+.social-media-icons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &>*{
+        align-self: flex-start;
+        margin: 5px;
+    }
+}

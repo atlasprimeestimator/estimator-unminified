@@ -1,3 +1,4 @@
+// Server instance setup with Node.js wrapper
 const express = require('express');
 
 const app = express();

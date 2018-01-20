@@ -5,13 +5,12 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no" name="viewport">
     <!--Meta Tags for OG markup-->
-    <meta property="og:url" content="https://atlas-calculator.herokuapp.com/"/>
-    <meta property="og:title" content="Find out how much you can save with Atlas"/>
-    <meta property="og:description" content="The Atlas Power System is the only hybrid renewable energy system 
-    designed to retrofit oil rigs and coastal thermal power plants to put your neighbor back to work. Find out how 
-    much Atlas Power Systems can save your money in your electricity bill"/>
-    <meta property="og:image" content="https://atlas-calculator.herokuapp.com/assets/img/og-img.jpeg"/>
-    <meta property="og:locale" content="en_US"/>
+    <meta property="og:url" content="https://atlas-calculator.herokuapp.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Play our mini game" />
+    <meta property="og:description" content="Try our calculator to see how much you would save with Atlas Power Systems" />
+    <meta property="og:image" content="" />
+    <meta property="og:locale" content="en_US" />
     <!--Favicons-->
     <link rel="apple-touch-icon" sizes="180x180" href="/xapple-touch-icon.png.pagespeed.ic.atxACRARXB.webp">
     <link rel="icon" type="image/png" sizes="32x32" href="/xfavicon-32x32.png.pagespeed.ic.V-VFf6v3DB.webp">
@@ -29,6 +28,7 @@
 </head>
 
 <body>
+    <div id="fb-root"></div>
     <div class="section">
         <div class="container">
 
@@ -57,7 +57,8 @@
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="now-ui-icons business_bulb-63"></i>
                                                 <span id="dropdownConsumptionValue" class="px-2">
-                                                    Do you have your latest electric bill <span id="consumptionDropdownSelected">(Y/N)?</span>
+                                                    Do you have your latest electric bill
+                                                    <span id="consumptionDropdownSelected">(Y/N)?</span>
                                                 </span>
                                             </button>
                                             <ul id="dropdownConsumptionOptions" class="dropdown-menu">
@@ -68,7 +69,10 @@
                                     </div>
 
                                     <div class="input-group form-group-no-border mb-3">
-                                        <input type="text" name="consumption" class="form-control pl-5" id="formInputConsumption" placeholder="Enter your monthly energy usage (kWh)">
+                                        <span class="input-group-addon">
+                                            <i class="now-ui-icons shopping_shop"></i>
+                                        </span>
+                                        <input type="text" name="consumption" class="form-control" id="formInputConsumption" placeholder="Enter your monthly energy usage (kWh)">
                                     </div>
 
                                     <div class="input-group form-group-no-border mb-3">
@@ -81,8 +85,7 @@
 
                                     <div class="input-group mb-3">
                                         <div class="dropdown width fullwidth">
-                                            <button class="btn btn-block btn-round dropdown-toggle text-left my-0 btn-primary--site-theme" id="formDropdownSub" data-toggle="dropdown"
-                                                aria-haspopup="true" aria-expanded="false">
+                                            <button class="btn btn-block btn-round dropdown-toggle text-left my-0 btn-primary--site-theme" id="formDropdownSub" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="now-ui-icons users_single-02"></i>
                                                 <span id="formDropdownSubValue" class="px-2">
                                                     Atlas Membership Fee
@@ -139,11 +142,15 @@
                                 <strong id="phraseROItime"></strong>!
                             </p>
                         </div>
-                        <p class="my-0">Your savings are calculated using the </p><p>Atlas <strong><span id="membershipTime">x</span></strong> subscription</p>
+                        <p class="my-0">Your savings are calculated using the </p>
+                        <p>Atlas
+                            <strong>
+                                <span id="membershipTime">x</span>
+                            </strong> subscription</p>
                         <div class="input-group mb-3">
                             <div class="dropdown width fullwidth">
-                                <button class="btn btn-round btn-info dropdown-toggle text-left my-0 btn-primary--site-theme" id="formDropdownSubResults" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
+                                <button class="btn btn-round btn-info dropdown-toggle text-left my-0 btn-primary--site-theme" id="formDropdownSubResults"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="now-ui-icons users_single-02"></i>
                                     <span id="formDropdownSubResultsValue" class="px-2">
                                         Try out a different plan
@@ -173,18 +180,21 @@
 
                         <div class="text-center">
                             <h6>Share Your Result</h6>
-                            <a target="_blank" href="https://www.twitter.com/" class="btn btn-neutral btn-social-media btn-twitter" rel="tooltip"
-                                title="" data-original-title="Follow us on Twitter">
-                                <i class="fa fa-twitter fa-3x"></i>
-                            </a>
-                            <a target="_blank" href="https://www.facebook.com/" class="btn btn-neutral btn-social-media btn-facebook" rel="tooltip"
-                                title="" data-original-title="Like us on Facebook">
-                                <i class="fa fa-facebook-square fa-3x"></i>
-                            </a>
-                            <a target="_blank" href="https://www.linkedin.com/" class="btn btn-neutral btn-social-media btn-linkedin" rel="tooltip"
-                                title="" data-original-title="Follow us on LinkedIn">
-                                <i class="fa fa-linkedin fa-3x"></i>
-                            </a>
+                                <div class="social-media-icons">
+                                <a class="twitter-share-button"
+                                href="https://twitter.com/intent/tweet?text=Try%20our%20calculator%20to%20see%20how%20much%20you%20would%20save%20with%20Atlas%20Power%20Systems!">
+                                Tweet</a>
+                                <div class="fb-share-button" 
+                                data-href="https://atlasprimenrg.com/investors.html" 
+                                data-layout="button" 
+                                data-action="like" 
+                                data-size="small"
+                                target="_blank" 
+                                data-show-faces="false">
+                                </div>
+                                <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
+                                <script type="IN/Share" data-url="https://atlasprimenrg.com/investors.html"></script>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -204,10 +214,11 @@
             </div>
             <!-- End disclaimer -->
             <iframe name="output_frame" class="iframe--hidden" id="output_frame" width="0" height="0">
-            </iframe>                
+            </iframe>
 </body>
 <!--   Core JS Files   -->
-<script src="assets/js/script.min.js" type="text/javascript"></script>
+<script src="assets/js/social-media-share.js" type="text/javascript"></script>
+<<script src="assets/js/script.min.js" type="text/javascript"></script>
 <script src="assets/js/core/jquery.3.2.1.min.js" type="text/javascript"></script>
 <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
 <script src="assets/js/core/bootstrap.min.js" type="text/javascript"></script>
