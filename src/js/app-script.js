@@ -128,6 +128,8 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // app calculator inputs
+  const appFormInputContainers = document.querySelectorAll('.form-control');
+  //text input containers
   const appFormInputText = {
     monthlyConsumption: document.querySelector('#formInputConsumption'),
     // householdSize: document.querySelector('#formInputHouseholdSize'),
@@ -155,7 +157,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  function modifyChildContainerFocus(e){
+    const iconContainer = e.target.previousElementSibling;
+    if(!!iconContainer){
+      iconContainer.classList.add('input--active');
+    }
+  }
+  function modifyChildContainerBlur(e){
+    const iconContainer = e.target.previousElementSibling;
+    if(!!iconContainer){
+      iconContainer.classList.remove('input--active');
+    }
+  }
   // event Listeners
+  for(let j in appFormInputContainers){
+    const formContainer = appFormInputContainers[j];
+    if(formContainer.nodeName=='INPUT' && formContainer.previousElementSibling.nodeName=='SPAN'){
+      formContainer.addEventListener('focus', modifyChildContainerFocus);
+      formContainer.addEventListener('blur', modifyChildContainerBlur);
+    }
+  }
   for (let i in appFormInputText) {
     appFormInputText[i].onchange = (e) => inputChangeHandler(e);
   }

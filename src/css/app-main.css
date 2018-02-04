@@ -61,14 +61,18 @@ a:hover {
   text-align: center; }
 
 .component__container.container--show {
-  -webkit-animation: 1750ms fadeIn ease forwards;
-  animation: 1750ms fadeIn ease forwards;
   display: block; }
+  @media all and (min-width: 768px) {
+    .component__container.container--show {
+      -webkit-animation: 1750ms fadeIn ease forwards;
+      animation: 1750ms fadeIn ease forwards; } }
 
 .component__container.container--hide {
-  -webkit-animation: 1750ms fadeOut ease forwards;
-  animation: 1750ms fadeOut ease forwards;
   display: none; }
+  @media all and (min-width: 768px) {
+    .component__container.container--hide {
+      -webkit-animation: 1750ms fadeOut ease forwards;
+      animation: 1750ms fadeOut ease forwards; } }
 
 .results--hide {
   display: none; }
@@ -90,6 +94,11 @@ a:hover {
 /* * * * * * * *
  * Form input(s) modifications
  * * * * * * * */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0; }
+
 /* Form input(s) */
 .calculator__form .input-group-addon,
 .calculator__form .form-control,
@@ -107,9 +116,8 @@ a:hover {
   width: 100%;
   z-index: 999; }
 
-.form--blink {
-  -webkit-animation: 1000ms blinkIn ease forwards;
-  animation: 1000ms blinkIn ease forwards; }
+.input-group-addon.input--active {
+  background-color: rgba(222, 222, 222, 0.5) !important; }
 
 /* Form buttons */
 .calculator__form .btn.btn-primary--site-theme {
@@ -148,3 +156,9 @@ a:hover {
     -ms-flex-item-align: start;
     align-self: flex-start;
     margin: 5px; }
+
+.iframe--hidden {
+  display: none; }
+
+fb-share-button.fb_iframe_widget.fb_iframe_widget_fluid > span {
+  height: 21px; }
